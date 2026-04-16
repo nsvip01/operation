@@ -1,0 +1,63 @@
+[debug] [2026-04-16T10:59:26.217Z] ----------------------------------------------------------------------
+[debug] [2026-04-16T10:59:26.219Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\nabed\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2026-04-16T10:59:26.220Z] CLI Version:   15.15.0
+[debug] [2026-04-16T10:59:26.220Z] Platform:      win32
+[debug] [2026-04-16T10:59:26.220Z] Node Version:  v22.14.0
+[debug] [2026-04-16T10:59:26.220Z] Time:          Thu Apr 16 2026 13:59:26 GMT+0300 (Israel Daylight Time)
+[debug] [2026-04-16T10:59:26.220Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  F:\خاص\operation
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-04-16T10:59:46.511Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-16T10:59:46.512Z] > authorizing via signed-in user (naseemabedrabou@gmail.com)
+[debug] [2026-04-16T10:59:46.512Z] Checked if tokens are valid: true, expires at: 1776340417688
+[debug] [2026-04-16T10:59:46.513Z] Checked if tokens are valid: true, expires at: 1776340417688
+[debug] [2026-04-16T10:59:46.514Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/operation-53ad6 [none]
+[debug] [2026-04-16T10:59:46.976Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/operation-53ad6 200
+[debug] [2026-04-16T10:59:46.976Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/operation-53ad6 {"projectId":"operation-53ad6","projectNumber":"112380679613","displayName":"operation","name":"projects/operation-53ad6","resources":{"hostingSite":"operation-53ad6","realtimeDatabaseInstance":"operation-53ad6-default-rtdb"},"state":"ACTIVE","etag":"1_616b3427-7b5f-4e45-b818-7af4dccc70a7"}
+[info] i  Using project operation-53ad6 (operation) . 
+[info] 
+=== Hosting Setup
+[debug] [2026-04-16T10:59:46.985Z] Checked if tokens are valid: true, expires at: 1776340417688
+[debug] [2026-04-16T10:59:46.985Z] Checked if tokens are valid: true, expires at: 1776340417688
+[debug] [2026-04-16T10:59:46.985Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/operation-53ad6 [none]
+[debug] [2026-04-16T10:59:47.251Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/operation-53ad6 200
+[debug] [2026-04-16T10:59:47.251Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/operation-53ad6 {"projectId":"operation-53ad6","projectNumber":"112380679613","displayName":"operation","name":"projects/operation-53ad6","resources":{"hostingSite":"operation-53ad6","realtimeDatabaseInstance":"operation-53ad6-default-rtdb"},"state":"ACTIVE","etag":"1_616b3427-7b5f-4e45-b818-7af4dccc70a7"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[info] 
+[info] i  Didn't detect a .git folder. Assuming F:\خاص\operation is the project root. 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=221495570&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2026-04-16T11:00:24.927Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2026-04-16T11:00:24.928Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2026-04-16T11:00:25.335Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2026-04-16T11:00:25.335Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2026-04-16T11:00:25.339Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2026-04-16T11:00:25.819Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2026-04-16T11:00:25.819Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"nsvip01","id":207377719,"node_id":"U_kgDODFxVNw","avatar_url":"https://avatars.githubusercontent.com/u/207377719?v=4","gravatar_id":"","url":"https://api.github.com/users/nsvip01","html_url":"https://github.com/nsvip01","followers_url":"https://api.github.com/users/nsvip01/followers","following_url":"https://api.github.com/users/nsvip01/following{/other_user}","gists_url":"https://api.github.com/users/nsvip01/gists{/gist_id}","starred_url":"https://api.github.com/users/nsvip01/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/nsvip01/subscriptions","organizations_url":"https://api.github.com/users/nsvip01/orgs","repos_url":"https://api.github.com/users/nsvip01/repos","events_url":"https://api.github.com/users/nsvip01/events{/privacy}","received_events_url":"https://api.github.com/users/nsvip01/received_events","type":"User","user_view_type":"private","site_admin":false,"name":null,"company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":null,"twitter_username":null,"notification_email":null,"public_repos":1,"public_gists":0,"followers":0,"following":0,"created_at":"2025-04-12T20:53:20Z","updated_at":"2026-04-04T19:05:17Z","private_gists":0,"total_private_repos":0,"owned_private_repos":0,"disk_usage":26,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] +  Success! Logged into GitHub as nsvip01 
+[info] 

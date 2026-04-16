@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة العمليات الجراحية</title>
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- BoxIcons (Lightweight Icon library) -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CDNs for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <i class='bx bx-plus-medical'></i>
+            <span>نظام العمليات</span>
+        </div>
+        <nav>
+            <button id="btn-home" class="nav-btn active">
+                <i class='bx bx-home-alt'></i> الرئيسية
+            </button>
+            <button id="btn-add" class="nav-btn">
+                <i class='bx bx-calendar-plus'></i> إضافة عملية
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <!-- Toast Notification Area -->
+        <div id="toast-container" class="toast-container"></div>
+
+        <!-- ======================= -->
+        <!-- HOME / SCHEDULING VIEW  -->
+        <!-- ======================= -->
+        <section id="view-home" class="view active">
+            <!-- Stats Bar -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class='bx bx-calendar-check'></i></div>
+                    <div class="stat-info">
+                        <h3>عمليات اليوم</h3>
+                        <p id="stat-today">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class='bx bx-calendar-star'></i></div>
+                    <div class="stat-info">
+                        <h3>عمليات الشهر</h3>
+                        <p id="stat-month">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header and Filter -->
+            <div class="section-header">
+                <div class="header-main-actions">
+                    <h2><i class='bx bx-list-ul'></i> جدول العمليات الجراحية</h2>
+                    <div class="export-actions">
+                        <button onclick="exportToExcel()" class="btn-export excel-btn" title="تصدير إلى Excel"><i
+                                class='bx bx-spreadsheet'></i> اكسل</button>
+                        <button onclick="exportToPDF()" class="btn-export pdf-btn" title="تصدير إلى PDF"><i
+                                class='bx bxs-file-pdf'></i> PDF</button>
+                    </div>
+                </div>
+                <div class="date-filter">
+                    <label for="filter-date">عرض حسب التاريخ:</label>
+                    <input type="date" id="filter-date">
+                </div>
+            </div>
+
+            <!-- Operations Table -->
+            <div class="table-responsive">
+                <table class="ops-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable" onclick="sortTable('date')">الوقت/التاريخ <i class='bx bx-sort'></i>
+                            </th>
+                            <th class="sortable" onclick="sortTable('name')">العملية <i class='bx bx-sort'></i></th>
+                            <th class="sortable" onclick="sortTable('surgeon')">الجراح <i class='bx bx-sort'></i></th>
+                            <th class="sortable" onclick="sortTable('room')">غرفة (OR) <i class='bx bx-sort'></i></th>
+                            <th>ملاحظات</th>
+                            <th class="no-print">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ops-table-body">
+                        <!-- Rows will be dynamically added here -->
+                    </tbody>
+                </table>
+                <div id="empty-state" class="empty-state hidden">
+                    <i class='bx bx-folder-open'></i>
+                    <p>لا توجد عمليات مجدولة لهذا اليوم.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================== -->
+        <!-- ADD / EDIT OPERATION VIEW  -->
+        <!-- ========================== -->
+        <section id="view-form" class="view hidden">
+            <div class="form-container">
+                <h2 id="form-title"><i class='bx bx-edit-alt'></i> إضافة عملية جديدة</h2>
+                <form id="op-form">
+                    <input type="hidden" id="op-id">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="op-date">التاريخ <span class="required">*</span></label>
+                            <input type="date" id="op-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="op-time">الوقت (اختياري)</label>
+                            <input type="time" id="op-time">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="op-name">اسم العملية <span class="required">*</span></label>
+                        <input type="text" id="op-name" placeholder="مثال: استئصال الزائدة الدودية" required
+                            autocomplete="off">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="op-surgeon">اسم الجراح <span class="required">*</span></label>
+                            <input type="text" id="op-surgeon" placeholder="مثال: د. أحمد خالد" required
+                                autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="op-room">رقم غرفة العمليات (OR) <span class="required">*</span></label>
+                            <select id="op-room" required>
+                                <option value="" disabled selected>اختر الغرفة...</option>
+                                <option value="OR-1">غرفة العمليات 1</option>
+                                <option value="OR-2">غرفة العمليات 2</option>
+                                <option value="OR-3">غرفة العمليات 3</option>
+                                <option value="OR-4">غرفة العمليات 4</option>
+                                <option value="OR-5">غرفة عمليات طوارئ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="op-notes">ملاحظات إضافية</label>
+                        <textarea id="op-notes" rows="3"
+                            placeholder="أية ملاحظات حول المريض أو الأدوات المطلوبة..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary"><i class='bx bx-save'></i> حفظ العملية</button>
+                        <button type="button" id="btn-cancel" class="btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ======================= -->
+        <!-- CONFIRM DELETE MODAL    -->
+        <!-- ======================= -->
+        <div id="delete-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>تأكيد الحذف</h3>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من رغبتك في حذف هذه العملية بشكل نهائي؟</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-confirm-delete" class="btn-danger">نعم، احذف</button>
+                    <button class="btn-secondary close-modal-btn">إلغاء</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>تم التطوير بواسطة نسيم عبدربه</p>
+    </footer>
+
+    <!-- Custom Script -->
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
